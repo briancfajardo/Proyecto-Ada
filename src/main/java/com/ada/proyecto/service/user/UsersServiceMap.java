@@ -1,6 +1,6 @@
 package com.ada.proyecto.service.user;
 
-import com.ada.proyecto.persistence.users.UsersPersistence;
+import com.ada.proyecto.repository.user.UsersPersistence;
 import com.ada.proyecto.repository.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

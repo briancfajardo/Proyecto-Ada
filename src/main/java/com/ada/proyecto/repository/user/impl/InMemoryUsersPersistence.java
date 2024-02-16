@@ -1,7 +1,7 @@
-package com.ada.proyecto.persistence.users.impl;
+package com.ada.proyecto.repository.user.impl;
 
 import com.ada.proyecto.exception.UserNotFoundException;
-import com.ada.proyecto.persistence.users.UsersPersistence;
+import com.ada.proyecto.repository.user.UsersPersistence;
 import com.ada.proyecto.repository.user.User;
 import org.springframework.stereotype.Service;
 

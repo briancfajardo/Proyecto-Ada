@@ -28,12 +28,16 @@ public class UsersController {
         User user = new User(userDto);
         User savedUser = usersService.save(user);
         URI createdUserUri = URI.create("/v1/users/" + savedUser.getId());
+        System.out.println(savedUser);
         return ResponseEntity.created(createdUserUri).body(savedUser);
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = usersService.all();
+        for(User user : users){
+            System.out.println(user);
+        }
         return ResponseEntity.ok(users);
     }
 
@@ -41,6 +45,7 @@ public class UsersController {
     public ResponseEntity<User> findById(@PathVariable("id") String id) {
         Optional<User> userOptional = usersService.findById(id);
         if (userOptional.isPresent()) {
+            System.out.println(userOptional);
             return ResponseEntity.ok(userOptional.get());
         } else {
             throw new UserNotFoundException(id);
@@ -54,6 +59,7 @@ public class UsersController {
             User existingUser = userOptional.get();
             existingUser.update(userDto);
             User updatedUser = usersService.save(existingUser);
+            System.out.println(updatedUser);
             return ResponseEntity.ok(updatedUser);
         } else {
             throw new UserNotFoundException(id);
@@ -64,6 +70,7 @@ public class UsersController {
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id) {
         Optional<User> userOptional = usersService.findById(id);
         if (userOptional.isPresent()) {
+            System.out.println("User deleted: "+userOptional);
             usersService.deleteById(id);
             return ResponseEntity.ok().build();
         } else {

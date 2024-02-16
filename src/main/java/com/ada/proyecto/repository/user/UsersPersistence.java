@@ -1,4 +1,4 @@
-package com.ada.proyecto.persistence.users;
+package com.ada.proyecto.repository.user;
 
 import com.ada.proyecto.exception.UserNotFoundException;
 import com.ada.proyecto.repository.user.User;

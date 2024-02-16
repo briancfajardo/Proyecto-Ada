@@ -1,17 +1,34 @@
 package com.ada.proyecto.repository.user;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.annotation.processing.Generated;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.UUID;
 
+
+@Document("users")
 public class User {
-
-    private final String id;
-    private final Date createdAt;
+    @Id
+    private String id;
+    @Field
+    private LocalDate createdAt;
+    @Field
     private String name;
+    @Field
     private String lastName;
+    @Field
     private String email;
+    @Field
     private String passwordHash;
+
+    public User(){
+
+    }
 
     public User(String id, String name, String lastName, String email, String password) {
         this.id = id;
@@ -19,16 +36,16 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = new BCryptPasswordEncoder().encode(password);
-        this.createdAt = new Date();
+        this.createdAt = LocalDate.now();
     }
 
     public User(UserDto userDto) {
-        this.id = userDto.getId();
+        this.id = UUID.randomUUID().toString();
         this.name = userDto.getName();
         this.lastName = userDto.getLastName();
         this.email = userDto.getEmail();
         this.passwordHash = new BCryptPasswordEncoder().encode(userDto.getPassword());
-        this.createdAt = new Date();
+        this.createdAt = LocalDate.now();
     }
 
 
@@ -60,12 +77,20 @@ public class User {
         this.email = email;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public void update(UserDto userDto) {
@@ -75,5 +100,9 @@ public class User {
         if (!userDto.getPassword().isEmpty()) {
             this.passwordHash = new BCryptPasswordEncoder().encode(userDto.getPassword());
         }
+    }
+    @Override
+    public String toString(){
+        return String.format("User[id='%s', firstName='%s', lastName='%s', email='%s', password='%s']", id, name, lastName, email, passwordHash);
     }
 }
